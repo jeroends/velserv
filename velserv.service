@@ -1,0 +1,30 @@
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+
+# This unit gets pulled automatically into multi-user.target by
+# systemd-rc-local-generator if /etc/rc.local is executable.
+[Unit]
+Description=Velserv
+ConditionFileIsExecutable=/opt/velserv/velserv
+After=network.target
+After=network-online.target
+
+[Service]
+Type=forking
+ExecStart=/opt/velserv/velserv -d /dev/serial/by-id/usb-Velleman_Projects_VMB1USB_Velbus_USB_interface-if00 -p 6000
+#ExecStart=/opt/velserv/velserv -d /dev/ttyACM0 -p 6000
+ExecStartPost=/bin/bash -c "/bin/touch /var/log/velserv.log"
+ExecStartPost=/bin/bash -c "/bin/echo Velserv Started $(date) >> /var/log/velserv.log"
+ExecStartPost=/bin/bash -c "/bin/pidof velserv >> /var/log/velserv.log"
+ExecStop=/bin/kill $MAINPID
+TimeoutSec=0
+RemainAfterExit=yes
+StandardOutput=journal+console
+StandardError=journal+console
+
+[Install]
+WantedBy=multi-user.target
