@@ -47,7 +47,11 @@ To start VelServ and use /dev/ttyACM0 and port 6000, the following command line 
 
 sudo ./velserv -d /dev/ttyACM0 -p 6000
 
-VelServ as a Linux Service
+If you have issues with Linux assigning different tty**** ports, you can run VelServ and point it directly to the Velleman USB device
+
+./velserv -d /dev/serial/by-id/usb-Velleman_Projects_VMB1USB_Velbus_USB_interface-if00 -p 6000
+
+# VelServ as a Linux Service
 
 When enabled, the velserv.service file starts, stops and restarts VelServ as a service in Linux systems that support SystemD.
 
