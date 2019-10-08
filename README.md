@@ -1,6 +1,11 @@
 # velserv
 A TCP to Velbus gateway for Linux
 
+For use with the http://www.velbus.eu range of digital building control hardware.
+
+This TCP server offers a way to share the USB connection so that various software platforms to connect to the Velbus network simultaneously.
+For example, VelbusLink, OpenHab2 www.openhab.org , www.OpenRemote.org , HomeAssistant
+
 # HowTo
 Use GCC to compile the C code for your system
 
